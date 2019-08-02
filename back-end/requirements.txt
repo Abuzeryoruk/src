@@ -1,0 +1,5 @@
+Flask
+Flask-Login
+Flask-Mail
+Flask-MySQLdb
+Flask-RESTful

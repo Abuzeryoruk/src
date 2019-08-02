@@ -1,0 +1,76 @@
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <a href="{{ url_for('addUser') }}">Add User</a>
+  {% if session.logged_in %}
+    <a href="{{url_for('logout')}}">Logout</a>
+  {%endif%}
+  <table style="width:50%">
+    <caption>
+      Users
+    </caption>
+    <tr>
+      <th id="head">Id</th>
+      <th id="head">First Name</th>
+      <th id="head">Last Name</th>
+      <th id="head">Age</th>
+      <th id="head">Delete</th>
+    </tr>
+    {% for person in persons %}
+    <tr>
+      <td>{{ person["Personid"] }}</td>
+      <td>{{ person["FirstName"] }}</td>
+      <td>{{ person["LastName"] }}</td>
+      <td>{{ person["Age"] }}</td>
+      <td>
+        <button
+          id="{{ person['Personid'] }}"
+          type="submit"
+          onclick="deleteUser(this.id)"
+        >
+          X
+        </button>
+      </td>
+    </tr>
+    {%endfor%}
+  </table>
+
+  <script>
+    function deleteUser(id) {
+      let personId = id;
+      console.log(personId);
+      req = $.ajax({
+        url: "/deleteUser",
+        type: "post",
+        data: { personId: personId },
+        success: function() {
+          location.reload();
+        }
+      });
+    }
+  </script>
+  <style>
+    caption {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    table {
+      width: 100%;
+    }
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th,
+    td {
+      padding: 15px;
+      text-align: left;
+      background-color: whitesmoke;
+    }
+    #head {
+      background-color: black;
+      color: #eee;
+      border: 1px solid white;
+    }
+  </style>
+</div>
