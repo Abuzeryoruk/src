@@ -11,7 +11,7 @@ app.config['SECRET_KEY'] = 'aber_flask'
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '12345678'
+app.config['MYSQL_PASSWORD'] = '1234'
 app.config['MYSQL_DB'] = 'deneme'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 app.config['default_authentication_plugin'] = 'sha2_password'
@@ -22,7 +22,7 @@ mysql = MySQL(app)
 def protected(f):
     @wraps(f)
     def decorator(*args, **kwargs):
-        if session['logged_in']:
+        if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
             return redirect('/login')
@@ -33,9 +33,9 @@ def protected(f):
 @protected
 def home():
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM Persons;')
+    cur.execute('SELECT * FROM persons;')
     persons = list(cur.fetchall())
-    print('persons= ', persons)
+    #print('persons= ', persons)
 
     return render_template('home.html', **locals())
 

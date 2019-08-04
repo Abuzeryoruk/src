@@ -1,7 +1,7 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <a href="{{ url_for('addUser') }}">Add User</a>
   {% if session.logged_in %}
-    <a href="{{url_for('logout')}}">Logout</a>
+   <a href="{{url_for('logout')}}">Logout</a>  
   {%endif%}
   <table style="width:50%">
     <caption>
